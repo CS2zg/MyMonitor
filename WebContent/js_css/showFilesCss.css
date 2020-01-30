@@ -1,0 +1,47 @@
+@charset "UTF-8";
+.div-file{
+	float:left;
+	width:100px;
+	height:200px;
+	text-align: center;
+	padding:0;
+	margin:10px;
+}
+.div-img{
+	width:70px;
+	height:70px;
+}
+font{
+	font-size:12px;
+}
+
+#menu{
+	position:absolute;
+	width:130px;
+	height:auto;
+	background-color:white;
+	visibility:hidden;
+	border:1px solid #666;
+	
+}
+.hidden{
+	display:none;
+}
+a{
+	height:38px;
+	margin:20px;
+	padding:0px;
+	text-decoration:none;
+	}
+hr{
+	margin:0px;
+	padding:0px;
+}
+td{
+	margin: 0;
+}
+td img{
+	width:20px;
+	height: 20px;
+	margin:0;
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CUP性能监测</title>
+<script type="text/javascript" src="../jQuery/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../jQuery/flot/jquery.flot.js"></script>
+<style>
+div{
+	float:left;
+	}
+</style>
+<script type="text/javascript">
+	var options = {
+				lines: {
+					show: true
+				},
+				points: {
+					show: false
+				},
+				xaxis: {
+					tickDecimals: 0,
+					tickSize: 1
+				},
+				yaxis: {
+					ticks: 5,
+					min:0,
+					max: 100,
+					tickDecimals: 0
+				}
+			};
+	//cpu 1~4
+	var data1=[];
+	var series1={
+		"label": "",
+		"data":[]
+	};
+	var data2=[];
+	var series2={
+			"label": "",
+			"data":[]
+		};
+	var data3=[];
+	var series3={
+			"label": "",
+			"data":[]
+		};
+	var data4=[];
+	var series4={
+			"label": "",
+			"data":[]
+		};
+	var iteration = 0;//循环数 
+	function drawChart(cpus,iteration,data,series,num,cId,hId){
+		series["label"]='CPU'+(num+1);
+		if(iteration<=10){
+			series["data"].push([iteration,cpus[num].Combind]);
+		}else{
+			series["data"].shift();//删除第一个元素
+			series["data"].push([iteration,cpus[num].Combind]);
+		}
+		if(data.length==0){
+			data.push(series);
+		}else{
+			data.pop();
+			data.push(series);
+		}
+		console.log(cpus[num].Combind);
+		$(hId).text("CPU"+(num+1)+":");
+		$.plot(cId, data, options);
+	}
+	//ajax函数
+   	function sendAjax(){
+   		//循环+1
+   		++iteration;
+   		//Ajax数据处理函数
+   		function fetchData(result) {
+			
+			var cpus=result;//此处不需要JSON.parse
+			/*
+			if(iteration<=10){
+				series1.push([iteration,cpus[0].Combind]);
+			}else{
+				series1.shift();//删除第一个元素
+				series1.push([iteration,cpus[0].Combind]);
+			}
+			//console.log(cpus[0].Combind);
+			
+			if(data1.length==0){
+				data1.push(series1);
+			}else{
+				data1.pop();
+				data1.push(series1);
+			}
+			
+			$("#dh1").text("CPU1:");
+			$.plot("#cpu1", data1, options); 
+			*/
+			//console.log(series1["data"]);
+			//console.log(iteration);
+			drawChart(cpus,iteration,data1,series1,0,"#cpu1","#dh1");
+			drawChart(cpus,iteration,data2,series2,1,"#cpu2","#dh2");
+			drawChart(cpus,iteration,data3,series3,2,"#cpu3","#dh3");
+			drawChart(cpus,iteration,data4,series4,3,"#cpu4","#dh4");
+		}
+       	$.ajax({
+			url:'/myMonitor/servlet/CPUPerc',
+			type:'POST',
+            contentType:"application/json",
+			success: fetchData,
+			
+		});
+       	
+		setTimeout("sendAjax()",1000);//递归延时，每秒返回一组cpu的数据，无限循环
+    }
+   	$(document).ready(function(e) {
+   		//页面加载完成调用方法发送Ajax
+   		sendAjax();	
+   		
+   	});
+   
+	
+    
+
+
+</script>
+
+</head>
+
+<body>
+<div class="d">
+	<h3 id="dh1"></h3>
+	<div id='cpu1' style="width:370px; height:200px;"></div>
+</div>
+<div class="d">
+	<h3 id="dh2"></h3>
+	<div id='cpu2' style="width:370px; height:200px;"></div>
+</div>
+<div class="d">
+	<h3 id="dh3"></h3>
+	<div id='cpu3' style="width:370px; height:200px;"></div>
+</div>
+<div class="d">
+	<h3 id="dh4"></h3>
+	<div id='cpu4' style="width:370px; height:200px;"></div>
+</div>
+
+
+</body>
+</html>

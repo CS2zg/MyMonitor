@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>远程桌面监控</title>
+<script type="text/javascript" src="../jQuery/jquery-1.11.0.js"></script>
+</head>
+<body>
+<img id="desktopScreen" alt="远程桌面监控" width="100%" height="100%"/>
+<script>
+/**/
+ 	function setImage(){
+ 		
+ 	    $.ajax({
+ 	       	 type:'POST',
+ 	       	 url: "/myMonitor/servlet/RemoteDesktopScreen",
+	         contentType:"application/json",    
+	         success: fileName=> {
+	        	
+	        	$("#desktopScreen").attr("src","../images/Screen/"+fileName);
+	        	//console.log('success'+fileName);
+	         },
+	         error:data=>{
+	             alert('响应失败！');
+	         }
+	      });
+		setTimeout("setImage()",3000);//3秒发送一次请求，截一次图
+	}
+	
+    setImage();    
+</script>
+
+</body>
+</html>

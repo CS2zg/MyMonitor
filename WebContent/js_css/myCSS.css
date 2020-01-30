@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+.user{
+	text-decoration: none;
+	position: absolute;
+	right:20px;
+	bottom:0px;
+	font-size:12px;
+}
+iframe{
+	width:100%;
+	height:100%;
+	border:0px;
+}
+.perf{
+	height:25px;
+	font-size:18px;
+	margin-top:0px;
+	margin-left:19px;
+	text-decoration:none;
+	
+}
+.perf img{
+	height: 18px;
+	width:18px;
+	margin-right: 5px;
+	padding:0;
+}
+.user-panel{
+	position:absolute;
+	right:2px;
+	top:101px;
+	width:180px;
+	height:200px;
+	background-color:white;
+	display:none;
+}
+.user-info{
+	width:80px;
+	height: 80px;
+	margin-left: 55px;
+	margin-top: 20px;
+	text-align: center;
+	font-size: 15px;
+}
+.user-control{
+	margin-left: 30px;
+}
+.hidden{
+	display:none;
+}
+#upWin div{
+	margin-left:40px;
+}	
+.d{
+	float:left;
+	width:auto;
+	height:auto;
+}	
+.disk-Cent{
+    width: 400px;  
+    height: 300px;  
+    border: 0px;  
+	
+}
+.banner-top{
+	margin:0px;
+	background-image: url(../images/banner-top.jpg);
+}
+.banner-bottom{
+	text-align:center; 
+	font-size:16px; 
+	height:16%;
+}

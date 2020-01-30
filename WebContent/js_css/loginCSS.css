@@ -1,0 +1,57 @@
+@charset "UTF-8";
+html{width: 100%; height: 100%;}
+
+body{
+
+	background-repeat: no-repeat;
+
+	background-position: center center #2D0F0F;
+
+	background-color: #00BDDC;
+
+	background-image: url(/myMonitor/images/dgut.jpg);
+
+	background-size: 100% 100%;
+
+	}
+
+	.snow-container { 
+		position: fixed; 
+		top: 0; 
+		left: 0; 
+		width: 100%; 
+		height: 100%; 
+		pointer-events: none; 
+		z-index: 100001; 
+		}
+	#left{
+		width:50%;
+		height:100%;
+		float:left;
+		}
+	#right-signin{
+		width:50%;
+		height:100%;
+		float:left;
+		}
+	#right-signup{
+		width:50%;
+		height:100%;
+		float:left;
+		}
+	#login{
+		margin-top:140px;
+		margin-left:170px;
+		}
+	#signup{
+		margin-top:140px;
+		margin-left:170px;
+	}
+	.banner{
+		margin-top:200px;
+		margin-left:100px;
+		}
+	.hidden{
+		color:#F00;
+		visibility:hidden;
+	}

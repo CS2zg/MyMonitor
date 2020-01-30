@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>硬盘存储监测</title>
+<script type="text/javascript" src="../jQuery/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../jQuery/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="../jQuery/flot/jquery.flot.pie.js"></script>
+<link rel="stylesheet" type="text/css" href="../js_css/myCSS.css">
+<script type="text/javascript">
+$(function(){
+	var options={
+      		 series: {  
+      	          pie: {   
+      	            show: true //显示饼图  
+      	          }  
+      		    }	
+        }
+	/* C~G  
+	 data={{ label: "已使用",  data: usage},{ label: "未使用",  data: 100-usage}}
+	*/
+	var data1=[];
+	var data2=[];
+	var data3=[];
+	var data4=[];
+	var data5=[];
+	
+	$.ajax({
+		url:'/myMonitor/servlet/diskContent',
+		type:'GET',
+		contentType:'application/json',
+		success: res=>{
+			var disks=JSON.parse(res);
+			/* 
+			var usage=disks["C:\\"]*100;
+			data1[0]={
+					label:"已使用"+usage+"%",
+					data:usage
+			}
+			data1[1]={
+					label:"未使用"+(100-usage)+"%",
+					data:100-usage
+			}
+			$("#dh1").text("C:\\");
+			
+			$.plot($("#disk_Cent1"), data1, options);
+			 */
+			console.log(res);
+			drawChart(disks,"C:\\",data2,"#dh1","#disk_Cent1");
+			drawChart(disks,"D:\\",data2,"#dh2","#disk_Cent2");
+			drawChart(disks,"E:\\",data2,"#dh3","#disk_Cent3");
+			drawChart(disks,"F:\\",data2,"#dh4","#disk_Cent4");
+			drawChart(disks,"G:\\",data2,"#dh5","#disk_Cent5");
+		},
+		error:function(){
+			console.log("error ajax");
+			
+		}
+	});
+	/*通用绘制函数*/
+	function drawChart(disks,dir,data,hId,dId){
+		var usage=disks[dir]*100;
+		//控制一下小数避免出现错误
+		usage=parseInt(usage);
+		//console.log(usage);
+		data[0]={
+				label:"已使用"+usage+"%",
+				data:usage
+		}
+		data[1]={
+				label:"未使用"+(100-usage)+"%",
+				data:100-usage
+		}
+		$(hId).text(dir);
+		//注意！！！！！！！！一定要在ajax里画，不然gg
+		$.plot($(dId), data, options);
+	}
+		
+});
+</script>
+</head>
+<body>
+
+<div id="d1" class="d">
+	<h4 id="dh1"></h4>
+	<div id="disk_Cent1" style="width:370px;height:300px;"></div>
+</div>
+<div id="d2" class="d">
+	<h4 id="dh2"></h4>
+	<div id="disk_Cent2" style="width:370px;height:300px;"></div>
+</div>
+<div id="d3" class="d">
+	<h4 id="dh3"></h4>
+	<div id="disk_Cent3" style="width:370px;height:300px;"></div>
+</div>
+<div id="d4" class="d">
+	<h4 id="dh4"></h4>
+	<div id="disk_Cent4" style="width:370px;height:300px;"></div>
+</div>
+<div id="d5" class="d">
+	<h4 id="dh5"></h4>
+	<div id="disk_Cent5" style="width:370px;height:300px;"></div>
+</div>
+</body>
+</html>
